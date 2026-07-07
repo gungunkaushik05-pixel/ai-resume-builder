@@ -8,6 +8,7 @@ function Resume() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [education, setEducation] = useState([
+  
   {
     college: "",
     degree: "",
@@ -15,6 +16,15 @@ function Resume() {
     year: "",
   },
 ]);
+const [experience, setExperience] = useState([
+  {
+    company: "",
+    role: "",
+    duration: "",
+    description: "",
+  },
+]);
+const [skills, setSkills] = useState([""]);
   return (
     <div className="min-h-screen bg-slate-100 p-10">
       <div className="grid grid-cols-2 gap-8">
@@ -28,6 +38,10 @@ function Resume() {
   setPhone={setPhone}
   education={education}
 setEducation={setEducation}
+experience={experience}
+setExperience={setExperience}
+skills={skills}
+setSkills={setSkills}
         
         />
        
@@ -38,6 +52,8 @@ setEducation={setEducation}
   email={email}
   phone={phone}
   education={education}
+  experience={experience}
+  skills={skills}
 />
 
       </div>

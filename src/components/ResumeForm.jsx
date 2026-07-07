@@ -1,3 +1,5 @@
+import SkillsForm from "./SkillsForm";
+import ExperienceForm from "./ExperienceForm";
 import EducationForm from "./EducationForm";
 import { useState } from "react";
 function ResumeForm({
@@ -9,6 +11,10 @@ function ResumeForm({
   setPhone,
   education,
   setEducation,
+  experience,
+setExperience,
+skills,
+setSkills,
 })  {
   return (
     <div className="bg-white p-6 rounded-xl shadow-lg">
@@ -66,6 +72,14 @@ function ResumeForm({
       <EducationForm
   education={education}
   setEducation={setEducation}
+/>
+<ExperienceForm
+  experience={experience}
+  setExperience={setExperience}
+/>
+<SkillsForm
+  skills={skills}
+  setSkills={setSkills}
 />
 
     </div>

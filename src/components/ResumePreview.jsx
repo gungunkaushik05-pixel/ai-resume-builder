@@ -1,4 +1,12 @@
-function ResumePreview({ name, email, phone, education })    {
+function ResumePreview({
+  name,
+  email,
+  phone,
+  education,
+  experience,
+  skills,
+})     {
+
   return (
     <div className="bg-white rounded-xl shadow-lg p-8">
       <h2 className="text-3xl font-bold text-blue-600 mb-6">
@@ -38,6 +46,42 @@ function ResumePreview({ name, email, phone, education })    {
     <p>{edu.year || "Year"}</p>
   </div>
 ))}
+<hr className="my-6" />
+
+<h2 className="text-xl font-bold text-blue-700 mb-4">
+  Experience
+</h2>
+
+{experience.map((exp, index) => (
+  <div key={index} className="mb-4">
+    <h3 className="font-bold">
+      {exp.company || "Company Name"}
+    </h3>
+
+    <p>{exp.role || "Job Role"}</p>
+
+    <p>{exp.duration || "Duration"}</p>
+
+    <p>{exp.description || "Description"}</p>
+  </div>
+))}
+<hr className="my-6" />
+
+<h2 className="text-xl font-bold text-blue-700 mb-4">
+  Skills
+</h2>
+
+<div className="flex flex-wrap gap-2">
+  {skills.map((skill, index) => (
+    <span
+      key={index}
+      className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full"
+    >
+      {skill || "Skill"}
+    </span>
+  ))}
+</div>
+
     </div>
   );
 }
