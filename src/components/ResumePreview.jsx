@@ -1,3 +1,7 @@
+import { useReactToPrint } from "react-to-print";
+import { useRef } from "react";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 function ResumePreview({
   name,
   email,
@@ -6,13 +10,42 @@ function ResumePreview({
   experience,
   skills,
   projects,
-})     {
+})  
+   {const resumeRef = useRef();
+    const handlePrint = useReactToPrint({
+  contentRef: resumeRef,
+  documentTitle: "Resume",
+});
+    const downloadPDF = async () => {
+  const canvas = await html2canvas(resumeRef.current);
+
+  const imgData = canvas.toDataURL("image/png");
+
+  const pdf = new jsPDF("p", "mm", "a4");
+
+  const imgWidth = 210;
+  const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+  pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+
+  pdf.save("Resume.pdf");
+};
 
   return (
-    <div className="bg-white rounded-xl shadow-lg p-8">
+    <div
+  ref={resumeRef}
+  className="bg-white rounded-xl shadow-lg p-8"
+>
       <h2 className="text-3xl font-bold text-blue-600 mb-6">
         Resume Preview
       </h2>
+      <button
+  type="button"
+  onClick={handlePrint}
+  className="mb-6 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
+>
+  Print / Save PDF
+</button>
 
       <hr className="mb-6" />
 
