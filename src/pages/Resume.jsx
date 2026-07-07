@@ -33,6 +33,7 @@ const [projects, setProjects] = useState([
     github: "",
   },
 ]);
+const [photo, setPhoto] = useState("");
   return (
     <div className="min-h-screen bg-slate-100 p-10">
       <div className="grid grid-cols-2 gap-8">
@@ -52,6 +53,8 @@ skills={skills}
 setSkills={setSkills}
 projects={projects}
 setProjects={setProjects}
+ photo={ photo}
+setPhoto={setPhoto}
         
         />
        
@@ -65,6 +68,7 @@ setProjects={setProjects}
   experience={experience}
   skills={skills}
   projects={projects}
+  photo={photo}
 />
 
       </div>

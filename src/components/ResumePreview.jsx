@@ -10,6 +10,7 @@ function ResumePreview({
   experience,
   skills,
   projects,
+  photo,
 })  
    {const resumeRef = useRef();
     const handlePrint = useReactToPrint({
@@ -38,6 +39,19 @@ function ResumePreview({
 >
       <h2 className="text-3xl font-bold text-blue-600 mb-6">
         Resume Preview
+        <div className="flex justify-center mb-6">
+  {photo ? (
+    <img
+      src={photo}
+      alt="Profile"
+      className="w-32 h-32 rounded-full object-cover border-4 border-blue-500"
+    />
+  ) : (
+    <div className="w-32 h-32 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">
+      Photo
+    </div>
+  )}
+</div>
       </h2>
       <button
   type="button"

@@ -18,7 +18,21 @@ skills,
 setSkills,
 projects,
 setProjects,
-})  {
+photo,
+setPhoto,
+})  {const handlePhotoChange = (e) => {
+  const file = e.target.files[0];
+
+  if (file) {
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setPhoto(reader.result);
+    };
+
+    reader.readAsDataURL(file);
+  }
+};
   return (
     <div className="bg-white p-6 rounded-xl shadow-lg">
 
@@ -71,6 +85,19 @@ setProjects,
   onChange={(e) => setPhone(e.target.value)}
   className="w-full border p-3 rounded-lg outline-none"
 />
+
+<div className="mb-6">
+  <label className="block mb-2 font-semibold">
+    Profile Photo
+  </label>
+
+  <input
+    type="file"
+    accept="image/*"
+    onChange={handlePhotoChange}
+    className="w-full border p-3 rounded-lg"
+  />
+</div>
       </div>
       <EducationForm
   education={education}
