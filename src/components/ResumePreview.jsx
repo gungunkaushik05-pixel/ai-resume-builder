@@ -5,6 +5,7 @@ function ResumePreview({
   education,
   experience,
   skills,
+  projects,
 })     {
 
   return (
@@ -81,6 +82,34 @@ function ResumePreview({
     </span>
   ))}
 </div>
+<hr className="my-6" />
+
+<h2 className="text-xl font-bold text-blue-700 mb-4">
+  Projects
+</h2>
+
+{projects.map((project, index) => (
+  <div key={index} className="mb-5">
+
+    <h3 className="font-bold">
+      {project.title || "Project Title"}
+    </h3>
+
+    <p>
+      <strong>Tech:</strong>{" "}
+      {project.techStack || "Tech Stack"}
+    </p>
+
+    <p>
+      {project.description || "Project Description"}
+    </p>
+
+    <p className="text-blue-600 break-all">
+      {project.github || "GitHub Link"}
+    </p>
+
+  </div>
+))}
 
     </div>
   );

@@ -1,3 +1,4 @@
+import ProjectsForm from "./ProjectsForm";
 import SkillsForm from "./SkillsForm";
 import ExperienceForm from "./ExperienceForm";
 import EducationForm from "./EducationForm";
@@ -15,6 +16,8 @@ function ResumeForm({
 setExperience,
 skills,
 setSkills,
+projects,
+setProjects,
 })  {
   return (
     <div className="bg-white p-6 rounded-xl shadow-lg">
@@ -81,7 +84,10 @@ setSkills,
   skills={skills}
   setSkills={setSkills}
 />
-
+<ProjectsForm
+  projects={projects}
+  setProjects={setProjects}
+/>
     </div>
   );
 }

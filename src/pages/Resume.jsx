@@ -25,6 +25,14 @@ const [experience, setExperience] = useState([
   },
 ]);
 const [skills, setSkills] = useState([""]);
+const [projects, setProjects] = useState([
+  {
+    title: "",
+    techStack: "",
+    description: "",
+    github: "",
+  },
+]);
   return (
     <div className="min-h-screen bg-slate-100 p-10">
       <div className="grid grid-cols-2 gap-8">
@@ -42,6 +50,8 @@ experience={experience}
 setExperience={setExperience}
 skills={skills}
 setSkills={setSkills}
+projects={projects}
+setProjects={setProjects}
         
         />
        
@@ -54,6 +64,7 @@ setSkills={setSkills}
   education={education}
   experience={experience}
   skills={skills}
+  projects={projects}
 />
 
       </div>
