@@ -11,6 +11,7 @@ function ResumePreview({
   skills,
   projects,
   photo,
+  summary,
 })  
    {const resumeRef = useRef();
     const handlePrint = useReactToPrint({
@@ -78,6 +79,15 @@ function ResumePreview({
 <hr className="my-6" />
 
 <h2 className="text-xl font-bold text-blue-700 mb-4">
+  <hr className="my-6" />
+
+<h2 className="text-xl font-bold text-blue-700 mb-3">
+  Professional Summary
+</h2>
+
+<p className="text-gray-700 whitespace-pre-line">
+  {summary || "Your professional summary will appear here."}
+</p>
   Education
 </h2>
 

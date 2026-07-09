@@ -56,6 +56,8 @@ projects={projects}
 setProjects={setProjects}
  photo={ photo}
 setPhoto={setPhoto}
+summary={summary}
+setSummary={setSummary}
         
         />
        
@@ -70,6 +72,7 @@ setPhoto={setPhoto}
   skills={skills}
   projects={projects}
   photo={photo}
+  summary={summary}
 />
 
       </div>

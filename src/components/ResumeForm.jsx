@@ -20,6 +20,8 @@ projects,
 setProjects,
 photo,
 setPhoto,
+summary,
+setSummary,
 })  {const handlePhotoChange = (e) => {
   const removePhoto = () => {
   setPhoto("");
@@ -124,6 +126,19 @@ const removePhoto = () => {
       Remove Photo
     </button>
   )}
+</div>
+<div className="mb-6">
+  <label className="block mb-2 font-semibold">
+    Professional Summary
+  </label>
+
+  <textarea
+    placeholder="Write a short professional summary..."
+    value={summary}
+    onChange={(e) => setSummary(e.target.value)}
+    rows={5}
+    className="w-full border p-3 rounded-lg outline-none resize-none"
+  />
 </div>
       </div>
       <EducationForm
