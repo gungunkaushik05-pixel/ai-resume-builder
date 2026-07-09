@@ -34,6 +34,7 @@ const [projects, setProjects] = useState([
   },
 ]);
 const [photo, setPhoto] = useState("");
+const [summary, setSummary] = useState("");
   return (
     <div className="min-h-screen bg-slate-100 p-10">
       <div className="grid grid-cols-2 gap-8">

@@ -21,6 +21,14 @@ setProjects,
 photo,
 setPhoto,
 })  {const handlePhotoChange = (e) => {
+  const removePhoto = () => {
+  setPhoto("");
+
+  const fileInput = document.getElementById("photoInput");
+  if (fileInput) {
+    fileInput.value = "";
+  }
+};
   const file = e.target.files[0];
 
   if (file) {
@@ -31,6 +39,14 @@ setPhoto,
     };
 
     reader.readAsDataURL(file);
+  }
+};
+const removePhoto = () => {
+  setPhoto("");
+
+  const fileInput = document.getElementById("photoInput");
+  if (fileInput) {
+    fileInput.value = "";
   }
 };
   return (
@@ -92,11 +108,22 @@ setPhoto,
   </label>
 
   <input
+    id="photoInput"
     type="file"
     accept="image/*"
     onChange={handlePhotoChange}
     className="w-full border p-3 rounded-lg"
   />
+
+  {photo && (
+    <button
+      type="button"
+      onClick={removePhoto}
+      className="mt-3 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+    >
+      Remove Photo
+    </button>
+  )}
 </div>
       </div>
       <EducationForm
