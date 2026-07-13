@@ -13,11 +13,11 @@ function Hero() {
 
       <div className="mt-10 flex gap-5">
         <Link
-  to="/resume"
+  to="/login"
   className="bg-blue-600 text-white px-7 py-3 rounded-lg hover:bg-blue-700 transition"
 >
   Create Resume
-  </Link>
+</Link>
 
         <button className="border-2 border-blue-600 text-blue-600 px-7 py-3 rounded-lg hover:bg-blue-600 hover:text-white transition">
           View Templates

@@ -1,172 +1,287 @@
-import { useReactToPrint } from "react-to-print";
 import { useRef } from "react";
+import { useReactToPrint } from "react-to-print";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+
 function ResumePreview({
   name,
   email,
   phone,
+  github,
+  linkedin,
   education,
   experience,
   skills,
   projects,
-  photo,
   summary,
-})  
-   {const resumeRef = useRef();
-    const handlePrint = useReactToPrint({
-  contentRef: resumeRef,
-  documentTitle: "Resume",
-});
-    const downloadPDF = async () => {
-  const canvas = await html2canvas(resumeRef.current);
+  certifications,
+}) {
 
-  const imgData = canvas.toDataURL("image/png");
+  const resumeRef = useRef();
 
-  const pdf = new jsPDF("p", "mm", "a4");
+  const handlePrint = useReactToPrint({
+    contentRef: resumeRef,
+    documentTitle: "Resume",
+  });
 
-  const imgWidth = 210;
-  const imgHeight = (canvas.height * imgWidth) / canvas.width;
+  const downloadPDF = async () => {
+    try {
 
-  pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+      const canvas = await html2canvas(resumeRef.current, {
+        scale: 2,
+        backgroundColor: "#ffffff",
+        useCORS: true,
+      });
 
-  pdf.save("Resume.pdf");
-};
+      const imgData = canvas.toDataURL("image/png");
+
+      const pdf = new jsPDF("p", "mm", "a4");
+
+      const pdfWidth = 210;
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+
+      pdf.save("Resume.pdf");
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
-    <div
-  ref={resumeRef}
-  className="bg-white rounded-xl shadow-lg p-8"
->
-      <h2 className="text-3xl font-bold text-blue-600 mb-6">
-        Resume Preview
-        <div className="flex justify-center mb-6">
-  {photo ? (
-    <img
-      src={photo}
-      alt="Profile"
-      className="w-32 h-32 rounded-full object-cover border-4 border-blue-500"
-    />
-  ) : (
-    <div className="w-32 h-32 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">
-      Photo
-    </div>
-  )}
-</div>
-      </h2>
-      <button
-  type="button"
-  onClick={handlePrint}
-  className="mb-6 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
->
-  Print / Save PDF
-</button>
 
-      <hr className="mb-6" />
+    <div>
 
-      <h1 className="text-2xl font-bold">
-        {name}
-       
-      </h1>
+      <div
+        style={{
+          display: "flex",
+          gap: "12px",
+          marginBottom: "20px",
+        }}
+      >
 
-     <p className="text-gray-600 mt-2">
-  {email || "your@email.com"}
-</p>
+        <button
+          onClick={handlePrint}
+          style={{
+            background: "#16a34a",
+            color: "white",
+            border: "none",
+            padding: "12px 20px",
+            borderRadius: "8px",
+            cursor: "pointer",
+            fontWeight: "bold",
+          }}
+        >
+          🖨 Print
+        </button>
 
-      <p className="text-gray-600">
-  {phone || "+91 9876543210"}
-</p>
-<hr className="my-6" />
+        <button
+          onClick={downloadPDF}
+          style={{
+            background: "#2563eb",
+            color: "white",
+            border: "none",
+            padding: "12px 20px",
+            borderRadius: "8px",
+            cursor: "pointer",
+            fontWeight: "bold",
+          }}
+        >
+          📄 Download PDF
+        </button>
 
-<h2 className="text-xl font-bold text-blue-700 mb-4">
-  <hr className="my-6" />
+      </div>
 
-<h2 className="text-xl font-bold text-blue-700 mb-3">
-  Professional Summary
-</h2>
+      <div
+        ref={resumeRef}
+        style={{
+          width: "794px",
+          minHeight: "1123px",
+          background: "#ffffff",
+          margin: "auto",
+          padding: "40px",
+          fontFamily: "Arial",
+          color: "#222",
+          boxShadow: "0 0 10px rgba(0,0,0,0.2)",
+        }}
+      >
 
-<p className="text-gray-700 whitespace-pre-line">
-  {summary || "Your professional summary will appear here."}
-</p>
-  Education
-</h2>
+        <h1
+          style={{
+            textAlign: "center",
+            fontSize: "34px",
+            fontWeight: "bold",
+            marginBottom: "10px",
+          }}
+        >
+          {name || "Your Name"}
+        </h1>
 
-{education.map((edu, index) => (
-  <div key={index} className="mb-4">
-    <h3 className="font-bold">
-      {edu.college || "College Name"}
-    </h3>
+        <div
+          style={{
+            textAlign: "center",
+            fontSize: "15px",
+            marginBottom: "25px",
+          }}
+        >
+          {email} | {phone}
+          <br />
 
-    <p>{edu.degree || "Degree"}</p>
+          {linkedin && (
+            <>
+              LinkedIn :
+              <a href={linkedin}> {linkedin}</a>
+              <br />
+            </>
+          )}
 
-    <p>CGPA: {edu.cgpa || "--"}</p>
+          {github && (
+            <>
+              GitHub :
+              <a href={github}> {github}</a>
+            </>
+          )}
+        </div>
 
-    <p>{edu.year || "Year"}</p>
-  </div>
-))}
-<hr className="my-6" />
+        <hr />
 
-<h2 className="text-xl font-bold text-blue-700 mb-4">
-  Experience
-</h2>
+        <h2 style={{ marginTop: "25px" }}>
+          Professional Summary
+        </h2>
 
-{experience.map((exp, index) => (
-  <div key={index} className="mb-4">
-    <h3 className="font-bold">
-      {exp.company || "Company Name"}
-    </h3>
+        <p style={{ lineHeight: "28px" }}>
+          {summary || "Write your professional summary here."}
+        </p>
 
-    <p>{exp.role || "Job Role"}</p>
+        <hr style={{ margin: "25px 0" }} />
+                <hr className="my-8" />
 
-    <p>{exp.duration || "Duration"}</p>
+        {/* Education */}
 
-    <p>{exp.description || "Description"}</p>
-  </div>
-))}
-<hr className="my-6" />
+        <h2 className="text-lg font-bold uppercase border-b-2 border-blue-600 pb-1 mb-3">
+          Education
+        </h2>
 
-<h2 className="text-xl font-bold text-blue-700 mb-4">
-  Skills
-</h2>
+        {education.map((edu, index) => (
+          <div key={index} className="mb-5">
+            <h3 className="text-base font-semibold text-gray-800">
+              {edu.college || "College Name"}
+            </h3>
 
-<div className="flex flex-wrap gap-2">
-  {skills.map((skill, index) => (
-    <span
-      key={index}
-      className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full"
-    >
-      {skill || "Skill"}
-    </span>
-  ))}
-</div>
-<hr className="my-6" />
+            <p className="text-sm text-gray-700">
+              {edu.degree || "Degree"}
+            </p>
 
-<h2 className="text-xl font-bold text-blue-700 mb-4">
-  Projects
-</h2>
+            <p className="text-sm text-gray-600">
+              CGPA: {edu.cgpa || "--"}
+            </p>
 
-{projects.map((project, index) => (
-  <div key={index} className="mb-5">
+            <p className="text-sm text-gray-600">
+              {edu.year || "Passing Year"}
+            </p>
+          </div>
+        ))}
 
-    <h3 className="font-bold">
-      {project.title || "Project Title"}
-    </h3>
+        <hr className="my-8" />
 
-    <p>
-      <strong>Tech:</strong>{" "}
-      {project.techStack || "Tech Stack"}
-    </p>
+        {/* Experience */}
 
-    <p>
-      {project.description || "Project Description"}
-    </p>
+        <h2 className="text-lg font-bold uppercase border-b-2 border-blue-600 pb-1 mb-3">
+          Experience
+        </h2>
 
-    <p className="text-blue-600 break-all">
-      {project.github || "GitHub Link"}
-    </p>
+        {experience.map((exp, index) => (
+          <div key={index} className="mb-6">
+            <h3 className="text-base font-semibold text-gray-800">
+              {exp.role || "Job Role"}
+            </h3>
 
-  </div>
-))}
+            <p className="text-sm text-blue-600 font-medium">
+              {exp.company || "Company Name"}
+            </p>
+
+            <p className="text-sm text-gray-500 mb-2">
+              {exp.duration || "Duration"}
+            </p>
+
+            <p className="text-sm text-gray-700 leading-6">
+              {exp.description || "Experience description"}
+            </p>
+          </div>
+        ))}
+
+        <hr className="my-8" />
+
+        {/* Projects */}
+
+        <h2 className="text-lg font-bold uppercase border-b-2 border-blue-600 pb-1 mb-3">
+          Projects
+        </h2>
+
+        {projects.map((project, index) => (
+          <div key={index} className="mb-6">
+            <h3 className="text-base font-semibold text-gray-800">
+              {project.title || "Project Title"}
+            </h3>
+
+            <p className="text-sm text-blue-600 font-medium mb-1">
+              Tech Stack: {project.techStack || "React, Firebase"}
+            </p>
+
+            <p className="text-sm text-gray-700 leading-6 mb-2">
+              {project.description || "Project description"}
+            </p>
+
+            {project.github && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noreferrer"
+                className="text-sm text-blue-700 underline break-all"
+              >
+                {project.github}
+              </a>
+            )}
+          </div>
+        ))}
+
+        <hr className="my-8" />
+
+        {/* Skills */}
+
+        <h2 className="text-lg font-bold uppercase border-b-2 border-blue-600 pb-1 mb-3">
+          Skills
+        </h2>
+
+        <div className="flex flex-wrap gap-2">
+          {skills.map((skill, index) => (
+            <span
+              key={index}
+              className="bg-gray-200 text-gray-800 px-4 py-1 rounded-full text-sm font-medium"
+            >
+              {skill || "Skill"}
+            </span>
+          ))}
+        </div>
+
+        <hr className="my-8" />
+
+        {/* Certifications */}
+
+        <h2 className="text-lg font-bold uppercase border-b-2 border-blue-600 pb-1 mb-3">
+          Certifications
+        </h2>
+
+        <ul className="list-disc ml-6 space-y-2">
+          {certifications.map((certificate, index) => (
+            <li key={index} className="text-sm text-gray-700">
+              {certificate}
+            </li>
+          ))}
+        </ul>
+
+      </div>
 
     </div>
   );

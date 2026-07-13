@@ -3,6 +3,9 @@ import SkillsForm from "./SkillsForm";
 import ExperienceForm from "./ExperienceForm";
 import EducationForm from "./EducationForm";
 import { useState } from "react";
+import { generateSummary } from "../utils/gemini";
+import CertificatesForm from "./CertificatesForm";
+
 function ResumeForm({
   name,
   setName,
@@ -18,37 +21,37 @@ skills,
 setSkills,
 projects,
 setProjects,
-photo,
-setPhoto,
 summary,
 setSummary,
-})  {const handlePhotoChange = (e) => {
-  const removePhoto = () => {
-  setPhoto("");
+github,
+setGithub,
 
-  const fileInput = document.getElementById("photoInput");
-  if (fileInput) {
-    fileInput.value = "";
-  }
-};
-  const file = e.target.files[0];
+linkedin,
+setLinkedin,
+certifications,
+setCertifications,
 
-  if (file) {
-    const reader = new FileReader();
 
-    reader.onloadend = () => {
-      setPhoto(reader.result);
-    };
+})  {
+  
+  
 
-    reader.readAsDataURL(file);
-  }
-};
-const removePhoto = () => {
-  setPhoto("");
+    
 
-  const fileInput = document.getElementById("photoInput");
-  if (fileInput) {
-    fileInput.value = "";
+  
+const handleGenerateSummary = async () => {
+  try {
+    const aiSummary = await generateSummary({
+      name,
+      skills,
+      projects,
+      experience,
+    });
+
+    setSummary(aiSummary);
+  } catch (error) {
+    console.error(error);
+    alert("Failed to generate AI summary.");
   }
 };
   return (
@@ -103,30 +106,36 @@ const removePhoto = () => {
   onChange={(e) => setPhone(e.target.value)}
   className="w-full border p-3 rounded-lg outline-none"
 />
-
-<div className="mb-6">
+<div className="mb-4">
   <label className="block mb-2 font-semibold">
-    Profile Photo
+    LinkedIn
   </label>
 
   <input
-    id="photoInput"
-    type="file"
-    accept="image/*"
-    onChange={handlePhotoChange}
-    className="w-full border p-3 rounded-lg"
+    type="text"
+    placeholder="https://linkedin.com/in/yourname"
+    value={linkedin}
+    onChange={(e) => setLinkedin(e.target.value)}
+    className="w-full border p-3 rounded-lg outline-none"
   />
-
-  {photo && (
-    <button
-      type="button"
-      onClick={removePhoto}
-      className="mt-3 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
-    >
-      Remove Photo
-    </button>
-  )}
 </div>
+
+<div className="mb-4">
+  <label className="block mb-2 font-semibold">
+    GitHub
+  </label>
+
+  <input
+    type="text"
+    placeholder="https://github.com/yourname"
+    value={github}
+    onChange={(e) => setGithub(e.target.value)}
+    className="w-full border p-3 rounded-lg outline-none"
+  />
+</div>
+
+
+  
 <div className="mb-6">
   <label className="block mb-2 font-semibold">
     Professional Summary
@@ -140,6 +149,13 @@ const removePhoto = () => {
     className="w-full border p-3 rounded-lg outline-none resize-none"
   />
 </div>
+<button
+  type="button"
+  onClick={handleGenerateSummary}
+  className="mt-3 bg-purple-600 text-white px-5 py-2 rounded-lg hover:bg-purple-700"
+>
+  ✨ Generate AI Summary
+</button>
       </div>
       <EducationForm
   education={education}
@@ -156,6 +172,10 @@ const removePhoto = () => {
 <ProjectsForm
   projects={projects}
   setProjects={setProjects}
+/>
+<CertificatesForm
+  certifications={certifications}
+  setCertifications={setCertifications}
 />
     </div>
   );

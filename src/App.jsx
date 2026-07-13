@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import Login from "./pages/Login";
 
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -24,6 +25,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/resume" element={<Resume />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </>
   );
