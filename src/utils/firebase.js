@@ -3,7 +3,7 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
- apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+ apiKey: AIzaSyBqB-rcxr8GXNqrtwCFGpxeC1uG-kBi6d4,
   authDomain: "ai-resume-builder-958dc.firebaseapp.com",
   projectId: "ai-resume-builder-958dc",
   storageBucket: "ai-resume-builder-958dc.firebasestorage.app",
