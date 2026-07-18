@@ -2,15 +2,13 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
-console.log("API KEY =", import.meta.env.VITE_FIREBASE_API_KEY);
-
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: "ai-resume-builder-958dc.firebaseapp.com",
-  projectId: "ai-resume-builder-958dc",
-  storageBucket: "ai-resume-builder-958dc.firebasestorage.app",
-  messagingSenderId: "870478030038",
-  appId: "1:870478030038:web:18d3754848cb0aecfc5577",
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);
